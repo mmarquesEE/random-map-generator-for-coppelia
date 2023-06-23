@@ -9,7 +9,7 @@ extension = ".ttt";
 
 for i=1:n
     walls = mapGenerator(plotMap=false);
-    addWallsToScene(scene_name + num2str(i,2) + extension,walls);
+    addWallsToScene(scene_name + i + extension,walls);
 end
 
 %%
