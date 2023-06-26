@@ -1,9 +1,9 @@
-function cuboid = mapGenerator(room_size,ncells,wall_height,wall_thickness,opts)
+function cuboid = mapGenerator(room_size,ncells,opts)
 arguments
     room_size = 10
     ncells = 4
-    wall_height = 0.8
-    wall_thickness = 0.15
+    opts.wall_height = 0.8
+    opts.wall_thickness = 0.15
     opts.plotMap = true
 end
 
@@ -19,16 +19,16 @@ sep_lines = accumarray(idy(~idx),idz(~idx),[],@(r){lines(r,:)});
 %% Get cuboids properties
 for i=1:numel(sep_lines)
     base = room_size*sep_lines{i};
-    xy = wall_thickness/2*(~diff(base));
+    xy = opts.wall_thickness/2*(~diff(base));
     vert = [sortrows(base-xy,'ascend');...
             sortrows(base+xy,'descend')];
     
-    cuboid{i}.dims = [max(diff(vert)),wall_height];
+    cuboid{i}.dims = [max(diff(vert)),opts.wall_height];
     
     rect = polyshape(vert(:,1),vert(:,2));
     [xc,yc] = centroid(rect);
 
-    cuboid{i}.center = [xc,yc,wall_height/2];
+    cuboid{i}.center = [xc,yc,opts.wall_height/2];
     cuboid{i}.view2D = rect;
 end
 
